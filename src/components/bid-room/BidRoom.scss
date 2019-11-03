@@ -1,0 +1,33 @@
+.counter {
+  &__wrapper {
+    background: #3f51b5;
+    min-height: 150px;
+    position: relative;
+  }
+  &__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  &__main {
+    color: #f1f1f1;
+    font-size: 4rem;
+  }
+  &__seconds {
+    color: #f1f1f1;
+    font-size: 2rem;
+  }
+}
+
+.bid {
+  &__info {
+    margin: 1rem 0;
+  }
+}
+
+.bid-room {
+  max-width: 600px;
+  margin: 0 auto;
+}

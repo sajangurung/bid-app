@@ -1,12 +1,22 @@
 import React from 'react';
 import './App.scss';
-import BidCard from './components/bid-card/BidCard';
+import BidRoom from './components/bid-room/BidRoom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Main from './routes/main/Main';
 
 function App() {
   return (
-    <div className="App">
-      <BidCard />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Main />
+        </Route>
+
+        <Route path="/bid-room">
+          <BidRoom isActive="true" />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 

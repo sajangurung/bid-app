@@ -6,10 +6,12 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   card: {
-    minWidth: 275
+    minWidth: 275,
+    margin: '16px 0'
   },
   bullet: {
     display: 'inline-block',
@@ -24,9 +26,16 @@ const useStyles = makeStyles({
   }
 });
 
+function RoomButton() {
+  return (
+    <Button size="small">
+      <Link to="/bid-room">Enter bid room</Link>
+    </Button>
+  );
+}
+
 function BidCard() {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -48,7 +57,7 @@ function BidCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Enter bid room</Button>
+        <RoomButton />
       </CardActions>
     </Card>
   );
