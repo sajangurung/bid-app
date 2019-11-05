@@ -4,6 +4,8 @@ import BidInfo from '../bid-info/BidInfo';
 import BidEnter from '../bid-enter/BidEnter';
 import BidHistory from '../bid-history/BidHistory';
 import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import IconButton from '@material-ui/core/IconButton';
 
 function Counter() {
   return (
@@ -23,9 +25,14 @@ function BidRoom(props) {
     return (
       <div>
         <div className="bid-room">
-          <Link to="/">Go Back</Link>
-
           <div className="counter__wrapper">
+            <Link to="/">
+              <div className="nav__back">
+                <IconButton size="small">
+                  <ArrowBackIcon color="action" />
+                </IconButton>
+              </div>
+            </Link>
             <Counter />
           </div>
           <div className="container bid__info">

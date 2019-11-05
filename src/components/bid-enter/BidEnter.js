@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,21 +35,46 @@ function BidEnter() {
 
   return (
     <div>
-      <p>Enter your bid below</p>
-      <TextField
-        id="filled-adornment-amount"
-        className={clsx(classes.margin, classes.textField)}
-        variant="filled"
-        label="Amount"
-        value={values.amount}
-        onChange={handleChange('amount')}
-        InputProps={{
-          startAdornment: <InputAdornment position="start">$</InputAdornment>
-        }}
-      />
+      <p>Express Bid:</p>
+      <div className="row mb-3">
+        <div className="col-6 my-1">
+          <Button variant="contained" className="col">
+            $200
+          </Button>
+        </div>
+        <div className="col-6 my-1">
+          <Button variant="contained" className="col">
+            $300
+          </Button>
+        </div>
+      </div>
+      <Divider />
 
-      <Button size="small">Submit</Button>
-      <p>Quick Bid Suggestions: $200, $250, $300</p>
+      <p>Enter your bid below</p>
+      <div className="row">
+        <div className="col">
+          <TextField
+            id="filled-adornment-amount"
+            className="col"
+            variant="filled"
+            label="Amount"
+            value={values.amount}
+            onChange={handleChange('amount')}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              )
+            }}
+          />
+        </div>
+      </div>
+      <div className="row my-3">
+        <div className="col">
+          <Button color="primary" variant="contained" size="large">
+            Submit
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

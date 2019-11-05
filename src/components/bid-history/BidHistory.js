@@ -13,15 +13,15 @@ function BidHistory() {
   return (
     <div>
       <h4>Bid History</h4>
-      {bids.map(bid => {
-        return (
-          <ul>
+      <ul>
+        {bids.map(bid => {
+          return (
             <li key={bid.id}>
               ${bid.amount} by {bid.userName} at {bid.dateTime}
             </li>
-          </ul>
-        );
-      })}
+          );
+        })}
+      </ul>
     </div>
   );
 }

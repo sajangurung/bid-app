@@ -1,7 +1,7 @@
 .counter {
   &__wrapper {
     background: #3f51b5;
-    min-height: 150px;
+    min-height: 100px;
     position: relative;
   }
   &__text {
@@ -30,4 +30,10 @@
 .bid-room {
   max-width: 600px;
   margin: 0 auto;
+}
+
+.nav__back {
+  position: absolute;
+  top: 1em;
+  left: 1em;
 }

@@ -3,7 +3,7 @@ import './BidInfo.scss';
 function BidInfo() {
   return (
     <div>
-      <p>Current Highest Bid: user1234</p>
+      <p>Current Highest: $150 by user1234</p>
     </div>
   );
 }
