@@ -8,7 +8,7 @@ function BidList() {
       {bids.map((_, i) => {
         return (
           <div key={i}>
-            <BidCard />
+            <BidCard id={i} />
           </div>
         );
       })}

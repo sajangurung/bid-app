@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './BidRoom.scss';
 import BidInfo from '../bid-info/BidInfo';
 import BidEnter from '../bid-enter/BidEnter';
@@ -6,6 +6,7 @@ import BidHistory from '../bid-history/BidHistory';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
+import Sockette from 'sockette';
 
 function Counter() {
   return (
@@ -18,10 +19,73 @@ function Counter() {
   );
 }
 
-function BidRoom(props) {
-  const { isActive } = props;
+let ws;
 
-  if (isActive === 'true') {
+function BidRoom(props) {
+  const { isActive, wsUrl } = props;
+  const [messageList, setMessageList] = useState([]);
+  const [amount, setAmount] = useState(0);
+  const [isOpen, setOpen] = useState(false);
+
+  const onMessageReceived = ({ data }) => {
+    const message = JSON.parse(data);
+    setMessageList([
+      ...messageList,
+      {
+        data: {
+          ...message
+        }
+      }
+    ]);
+  };
+
+  const onMessageWasSent = value => {
+    setAmount(value);
+
+    const message = {
+      amount: parseFloat(value),
+      createdAt: new Date().toISOString(),
+      user: 'me'
+    };
+
+    ws.json({
+      message: 'sendmessage',
+      data: JSON.stringify(message)
+    });
+
+    setMessageList([
+      ...messageList,
+      {
+        data: message
+      }
+    ]);
+  };
+
+  useEffect(() => {
+    ws = new Sockette(wsUrl, {
+      timeout: 5e3,
+      maxAttempts: 1,
+      onopen: e => console.log('connected:', e),
+      onmessage: e => onMessageReceived(e),
+      onreconnect: e => console.log('Reconnecting...', e),
+      onmaximum: e => console.log('Stop Attempting!', e),
+      onclose: e => console.log('Closed!', e),
+      onerror: e => console.log('Error:', e)
+    });
+
+    const cleanup = () => {
+      ws && ws.close();
+      ws = null;
+    };
+    return cleanup;
+  }, [messageList]);
+
+  const handleClick = value => {
+    onMessageWasSent(value);
+    setOpen(!isOpen);
+  };
+
+  if (isActive) {
     return (
       <div>
         <div className="bid-room">
@@ -38,10 +102,10 @@ function BidRoom(props) {
           <div className="container bid__info">
             <BidInfo />
             <div className="bid__enter">
-              <BidEnter />
+              <BidEnter amount={amount} onClick={handleClick} />
             </div>
             <div className="bid__history">
-              <BidHistory />
+              <BidHistory bids={messageList} />
             </div>
           </div>
         </div>

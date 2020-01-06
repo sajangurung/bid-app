@@ -1,36 +1,14 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  margin: {
-    margin: theme.spacing(1)
-  },
-  textField: {
-    flexBasis: 200
-  }
-}));
-
-function BidEnter() {
-  const classes = useStyles();
-  const [values, setValues] = React.useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false
-  });
-
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
+function BidEnter(props) {
+  const [amount, setAmount] = useState(props.amount);
+  const onClick = value => {
+    props.onClick(value);
+    setAmount(0);
   };
 
   return (
@@ -58,8 +36,8 @@ function BidEnter() {
             className="col"
             variant="filled"
             label="Amount"
-            value={values.amount}
-            onChange={handleChange('amount')}
+            value={amount}
+            onChange={e => setAmount(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">$</InputAdornment>
@@ -70,7 +48,12 @@ function BidEnter() {
       </div>
       <div className="row my-3">
         <div className="col">
-          <Button color="primary" variant="contained" size="large">
+          <Button
+            color="primary"
+            variant="contained"
+            size="large"
+            onClick={() => onClick(amount)}
+          >
             Submit
           </Button>
         </div>

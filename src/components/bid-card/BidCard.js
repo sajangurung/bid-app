@@ -26,15 +26,16 @@ const useStyles = makeStyles({
   }
 });
 
-function RoomButton() {
+function RoomButton(props) {
+  const { id } = props;
   return (
     <Button size="small">
-      <Link to="/bid-room">Enter bid room</Link>
+      <Link to={`/bid-room/${id}`}>Enter bid room</Link>
     </Button>
   );
 }
 
-function BidCard() {
+function BidCard({ id }) {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
@@ -57,7 +58,7 @@ function BidCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <RoomButton />
+        <RoomButton id={id} />
       </CardActions>
     </Card>
   );

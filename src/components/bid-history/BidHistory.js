@@ -1,14 +1,14 @@
 import React from 'react';
 
-function BidHistory() {
-  const bids = [
-    {
-      id: '0202-3030',
-      amount: 150,
-      userName: 'user12',
-      dateTime: '05:00:39'
-    }
-  ];
+function BidHistory(props) {
+  const bids = props.bids.map(({ data }) => {
+    return {
+      id: '0202-3030' + Math.random(),
+      amount: data.amount,
+      userName: data.user,
+      dateTime: new Date(data.createdAt).toLocaleTimeString()
+    };
+  });
 
   return (
     <div>
@@ -16,7 +16,7 @@ function BidHistory() {
       <ul>
         {bids.map(bid => {
           return (
-            <li key={bid.id}>
+            <li key={bid.id} className="bid__details">
               ${bid.amount} by {bid.userName} at {bid.dateTime}
             </li>
           );
